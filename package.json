@@ -7,7 +7,7 @@
     "preview": "vite preview",
     "test": "jest --passWithNoTests",
     "teste:watch": "npm jest -- --watch",
-    "teste:ci": "npx jest -- --coverage",
+    "teste:ci": "npm run test -- --coverage",
     "teste:staged": "npm jest -- --findRelatedTests",
     "prepare": "husky install"
   },

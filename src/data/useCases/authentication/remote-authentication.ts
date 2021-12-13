@@ -1,8 +1,8 @@
 // protocols
-import { HttpPostClient } from '../../protocols/http/http-post-client';
+import { HttpPostClient } from '@/data/protocols/http/http-post-client';
 
 // models
-import { AccountModel } from '../../../domain/models/account-model';
+import { AccountModel } from '@/domain/models/account-model';
 
 // useCases
 import {

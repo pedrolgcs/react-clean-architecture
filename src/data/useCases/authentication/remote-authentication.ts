@@ -1,6 +1,12 @@
 // protocols
 import { HttpPostClient } from '@/data/protocols/http/http-post-client';
 
+// response
+import { HttpStatusCode } from '@/data/protocols/http/http-response';
+
+// erros
+import { InvalidCredentialsError } from '@/domain/errors/invalid-credentials-error';
+
 // models
 import { AccountModel } from '@/domain/models/account-model';
 
@@ -21,12 +27,17 @@ class RemoteAuthentication implements Authentication {
   }
 
   async auth(params: AuthenticationParams): Promise<AccountModel> {
-    await this.httpPostClient.post({
+    const httpResponse = await this.httpPostClient.post({
       url: this.url,
       body: params,
     });
 
-    return {} as AccountModel;
+    switch (httpResponse.statusCode) {
+      case HttpStatusCode.unauthorized:
+        throw new InvalidCredentialsError();
+      default:
+        return {} as AccountModel;
+    }
   }
 }
 

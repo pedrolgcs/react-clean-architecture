@@ -6,6 +6,7 @@ import { HttpStatusCode } from '@/data/protocols/http/http-response';
 
 // erros
 import { InvalidCredentialsError } from '@/domain/errors/invalid-credentials-error';
+import { UnexpectedError } from '@/domain/errors/unexpected-error';
 
 // models
 import { AccountModel } from '@/domain/models/account-model';
@@ -33,10 +34,12 @@ class RemoteAuthentication implements Authentication {
     });
 
     switch (httpResponse.statusCode) {
+      case HttpStatusCode.success:
+        return {} as AccountModel;
       case HttpStatusCode.unauthorized:
         throw new InvalidCredentialsError();
       default:
-        return {} as AccountModel;
+        throw new UnexpectedError();
     }
   }
 }

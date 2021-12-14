@@ -8,6 +8,7 @@
     "test": "jest --passWithNoTests",
     "teste:watch": "npm jest -- --watch",
     "teste:ci": "npm run test -- --coverage",
+    "teste:clear": "npx jest --clearCache",
     "teste:staged": "npm jest -- --findRelatedTests",
     "prepare": "husky install"
   },

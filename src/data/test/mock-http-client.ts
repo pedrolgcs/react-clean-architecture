@@ -16,7 +16,7 @@ export class HttpPostClientSpy implements HttpPostClient {
   body?: Record<string, unknown>;
 
   response: HttpResponse = {
-    statusCode: HttpStatusCode.noContent,
+    statusCode: HttpStatusCode.success,
   };
 
   async post(params: HttpPostParams): Promise<HttpResponse> {

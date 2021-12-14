@@ -4,6 +4,12 @@ import * as faker from 'faker';
 import { mockAuthentication } from '@/domain/test/mock-authentication';
 import { HttpPostClientSpy } from '@/data/test/mock-http-client';
 
+// erros
+import { InvalidCredentialsError } from '@/domain/errors/invalid-credentials-error';
+
+// response
+import { HttpStatusCode } from '@/data/protocols/http/http-response';
+
 // useCase
 import { RemoteAuthentication } from './remote-authentication';
 
@@ -36,5 +42,16 @@ describe('RemoteAuthentication', () => {
     await sut.auth(params);
 
     expect(httpPostClientSpy.body).toEqual(params);
+  });
+
+  it('Should throw InvalidCredentialsError if HttpPostClient returns 401', async () => {
+    const { sut, httpPostClientSpy } = makeSut();
+    httpPostClientSpy.response = {
+      statusCode: HttpStatusCode.unauthorized,
+    };
+
+    const promise = sut.auth(mockAuthentication());
+
+    await expect(promise).rejects.toThrow(new InvalidCredentialsError());
   });
 });

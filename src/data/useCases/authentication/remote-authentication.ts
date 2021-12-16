@@ -41,7 +41,7 @@ class RemoteAuthentication implements Authentication {
 
     switch (httpResponse.statusCode) {
       case HttpStatusCode.success:
-        return {} as AccountModel;
+        return httpResponse.body;
       case HttpStatusCode.unauthorized:
         throw new InvalidCredentialsError();
       default:

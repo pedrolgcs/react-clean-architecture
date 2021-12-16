@@ -1,21 +1,14 @@
-// protocols
-import { HttpPostClient } from '@/data/protocols/http/http-post-client';
-
-// response
-import { HttpStatusCode } from '@/data/protocols/http/http-response';
+// http
+import { HttpPostClient, HttpStatusCode } from '@/data/protocols/http';
 
 // erros
-import { InvalidCredentialsError } from '@/domain/errors/invalid-credentials-error';
-import { UnexpectedError } from '@/domain/errors/unexpected-error';
+import { InvalidCredentialsError, UnexpectedError } from '@/domain/errors';
 
 // models
-import { AccountModel } from '@/domain/models/account-model';
+import { AccountModel } from '@/domain/models';
 
 // useCases
-import {
-  AuthenticationParams,
-  Authentication,
-} from '../../../domain/useCases/authentication';
+import { AuthenticationParams, Authentication } from '@/domain/useCases';
 
 class RemoteAuthentication implements Authentication {
   private readonly url: string;

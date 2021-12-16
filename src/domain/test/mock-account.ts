@@ -1,7 +1,7 @@
 import * as faker from 'faker';
 
 // models
-import { AccountModel } from '../models/account-model';
+import { AccountModel } from '../models';
 
 // useCases
 import { AuthenticationParams } from '@/domain/useCases/authentication';

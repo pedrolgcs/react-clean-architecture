@@ -20,9 +20,15 @@ import {
 class RemoteAuthentication implements Authentication {
   private readonly url: string;
 
-  private readonly httpPostClient: HttpPostClient;
+  private readonly httpPostClient: HttpPostClient<
+    AuthenticationParams,
+    AccountModel
+  >;
 
-  constructor(url: string, httpClient: HttpPostClient) {
+  constructor(
+    url: string,
+    httpClient: HttpPostClient<AuthenticationParams, AccountModel>,
+  ) {
     this.url = url;
     this.httpPostClient = httpClient;
   }

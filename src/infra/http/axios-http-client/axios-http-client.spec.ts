@@ -4,9 +4,17 @@ import axios from 'axios';
 // client
 import { AxiosHttpClient } from './axios-http-client';
 
+// protocols
+import { HttpPostParams } from '@/data/protocols/http';
+
 // mocks
 jest.mock('axios');
 const mockedAxios = axios as jest.Mocked<typeof axios>;
+
+const mockPostRequest = (): HttpPostParams<unknown> => ({
+  url: faker.internet.url(),
+  body: faker.random.objectElement(),
+});
 
 // factory
 const makeSut = (): AxiosHttpClient => {
@@ -14,13 +22,13 @@ const makeSut = (): AxiosHttpClient => {
 };
 
 describe('AxiosHttpClient', () => {
-  it('Should call axios with correct URL and verb', async () => {
-    const url = faker.internet.url();
+  it('Should call axios with correct values', async () => {
+    const request = mockPostRequest();
     const sut = makeSut();
 
-    await sut.post({ url });
+    await sut.post(request);
 
-    expect(mockedAxios.post).toHaveBeenCalledWith(url);
+    expect(mockedAxios.post).toHaveBeenCalledWith(request.url, request.body);
   });
 });
 

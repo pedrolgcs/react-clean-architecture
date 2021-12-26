@@ -38,6 +38,7 @@
     "faker": "^5.5.3",
     "git-commit-msg-linter": "^3.2.8",
     "husky": ">=6",
+    "identity-obj-proxy": "^3.0.0",
     "jest": "^27.4.4",
     "lint-staged": ">=10",
     "prettier": "^2.5.1",

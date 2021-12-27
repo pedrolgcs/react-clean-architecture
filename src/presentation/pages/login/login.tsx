@@ -1,7 +1,7 @@
 import React from 'react';
 
 // components
-import { Spinner } from '../../common/components/Spinner/Spinner';
+import { Spinner } from '@/presentation/common/components/Spinner/Spinner';
 
 // styles
 import styles from './login.module.scss';

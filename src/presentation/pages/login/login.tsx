@@ -2,8 +2,7 @@ import React from 'react';
 import { FiMail, FiLock } from 'react-icons/fi';
 
 // components
-import { Spinner } from '@/presentation/common/components/Spinner/Spinner';
-import { Input } from '@/presentation/common/components/Form/Input/Input';
+import { Input, Spinner } from '@/presentation/common/components/';
 
 // styles
 import styles from './login.module.scss';

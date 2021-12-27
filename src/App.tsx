@@ -1,7 +1,7 @@
 import { Toaster } from 'react-hot-toast';
 
 // pages
-import { Login } from './presentation/pages/login/login';
+import { Login } from '@/presentation/pages/';
 
 function App() {
   return (

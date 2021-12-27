@@ -3,7 +3,7 @@ import { IconBaseProps } from 'react-icons';
 import classnames from 'classnames/bind';
 
 // styles
-import styles from './input.module.scss';
+import styles from './styles.module.scss';
 
 const cx = classnames.bind(styles);
 

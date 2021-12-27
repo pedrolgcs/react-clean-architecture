@@ -1,2 +1,2 @@
-export * from './Form/Input/Input';
-export * from './Spinner/Spinner';
+export * from './Form/Input';
+export * from './Spinner';

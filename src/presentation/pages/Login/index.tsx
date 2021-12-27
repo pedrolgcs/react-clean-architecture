@@ -5,7 +5,7 @@ import { FiMail, FiLock } from 'react-icons/fi';
 import { Input, Spinner } from '@/presentation/common/components/';
 
 // styles
-import styles from './login.module.scss';
+import styles from './styles.module.scss';
 
 function Login() {
   const [loading] = React.useState(false);

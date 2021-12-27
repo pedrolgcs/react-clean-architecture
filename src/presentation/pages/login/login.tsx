@@ -1,7 +1,9 @@
 import React from 'react';
+import { FiMail, FiLock } from 'react-icons/fi';
 
 // components
 import { Spinner } from '@/presentation/common/components/Spinner/Spinner';
+import { Input } from '@/presentation/common/components/Form/Input/Input';
 
 // styles
 import styles from './login.module.scss';
@@ -14,19 +16,18 @@ function Login() {
       <div className={styles.login}>
         <h1>login</h1>
         <form className={styles.login__form}>
-          <input
+          <Input
             type="email"
             name="email"
-            className={styles.login__input}
+            icon={FiMail}
             autoComplete="off"
             placeholder="Email"
           />
-          <input
+          <Input
             type="password"
             name="password"
-            className={styles.login__input}
-            autoComplete="off"
-            placeholder="*****"
+            icon={FiLock}
+            placeholder="password"
           />
           <button type="submit" className={styles.login__button}>
             Entrar

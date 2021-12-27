@@ -10,6 +10,8 @@ import styles from './login.module.scss';
 
 function Login() {
   const [loading] = React.useState(false);
+  const [email, setEmail] = React.useState('');
+  const [password, setPassword] = React.useState('');
 
   return (
     <div className={styles.container}>
@@ -20,12 +22,16 @@ function Login() {
             type="email"
             name="email"
             icon={FiMail}
+            value={email}
+            onChange={event => setEmail(event.target.value)}
             autoComplete="off"
             placeholder="Email"
           />
           <Input
             type="password"
             name="password"
+            value={password}
+            onChange={event => setPassword(event.target.value)}
             icon={FiLock}
             placeholder="password"
           />

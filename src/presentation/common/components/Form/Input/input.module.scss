@@ -18,5 +18,22 @@
 
   > svg {
     margin-right: 10px;
+    color:rgba(0, 0, 0, 0.3)
+  }
+}
+
+.container--focused {
+  border-color: var(--blue);
+
+  > svg {
+    color: var(--blue);
+  }
+}
+
+.container--filed {
+  border-color: var(--green);
+
+  > svg {
+    color: var(--green);
   }
 }

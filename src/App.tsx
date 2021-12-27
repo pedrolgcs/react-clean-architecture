@@ -1,7 +1,10 @@
+// pages
+import { Login } from './presentation/pages/login/login';
+
 function App() {
   return (
     <div className="App">
-      <h1>Hello</h1>
+      <Login />
     </div>
   );
 }

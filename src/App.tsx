@@ -1,14 +1,23 @@
 import { Toaster } from 'react-hot-toast';
 
-// pages
-import { Login } from '@/presentation/pages/';
+// routes
+import {
+  routes,
+  location,
+  Outlet,
+  Router,
+  ReactLocationDevtools,
+} from '@/presentation/routes';
 
 function App() {
   return (
-    <div className="App">
-      <Login />
+    <>
+      <Router location={location} routes={routes}>
+        <Outlet />
+        {process.env.NODE_ENV === 'development' && <ReactLocationDevtools />}
+      </Router>
       <Toaster />
-    </div>
+    </>
   );
 }
 

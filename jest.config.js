@@ -6,18 +6,21 @@ module.exports = {
     '!<rootDir>/src/**/index.ts',
     '!**/*.d.ts'
   ],
+  coverageReporters: ['lcov', 'json'],
+  setupFilesAfterEnv: [
+    "<rootDir>/tests/setupTests.ts"
+  ],
   coverageDirectory: 'coverage',
   testPathIgnorePatterns: [
-    '<rootDir>/node_modules/',
-    '<rootDir>/tests/e2e/cypress'
+    '<rootDir>/node_modules/'
   ],
   testEnvironment: 'jsdom',
   transform: {
-    '.+\\.(ts|tsx)$': 'ts-jest'
+    '^.+\\.(js|jsx|ts|tsx)$': '<rootDir>/node_modules/ts-jest',
   },
   moduleNameMapper: {
     '@/tests/(.*)': '<rootDir>/tests/$1',
     '@/(.*)': '<rootDir>/src/$1',
-    '\\.scss$': 'identity-obj-proxy'
+    '\\.(scss|css|sass)$': 'identity-obj-proxy',
   }
 }

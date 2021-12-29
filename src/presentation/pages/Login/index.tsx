@@ -8,9 +8,9 @@ import { Input, Spinner } from '@/presentation/common/components';
 import styles from './styles.module.scss';
 
 function Login() {
-  const [loading] = React.useState(false);
   const [email, setEmail] = React.useState('');
   const [password, setPassword] = React.useState('');
+  const [loading] = React.useState(false);
 
   return (
     <div className={styles.container}>

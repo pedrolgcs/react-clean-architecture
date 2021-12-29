@@ -41,11 +41,9 @@ function Login() {
         <span className={styles.login__link}>Criar conta</span>
       </div>
 
-      {loading && (
-        <div className={styles.container__spinner}>
-          <Spinner />
-        </div>
-      )}
+      <div className={styles.container__spinner} data-testid="spinner-wrap">
+        {loading && <Spinner />}
+      </div>
     </div>
   );
 }

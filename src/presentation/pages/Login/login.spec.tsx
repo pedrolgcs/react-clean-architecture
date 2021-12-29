@@ -8,4 +8,9 @@ describe('Login', () => {
     render(<Login />);
     expect(screen.getByText(/login/i)).toBeInTheDocument();
   });
+
+  it('should not render spinner in initial render', () => {
+    render(<Login />);
+    expect(screen.getByTestId('spinner-wrap').childElementCount).toBe(0);
+  });
 });

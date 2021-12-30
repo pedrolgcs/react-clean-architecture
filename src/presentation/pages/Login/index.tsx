@@ -4,19 +4,39 @@ import { FiMail, FiLock } from 'react-icons/fi';
 // components
 import { Input, Spinner } from '@/presentation/common/components';
 
+// useCases
+import { Authentication } from '@/domain/useCases';
+
 // styles
 import styles from './styles.module.scss';
 
-function Login() {
+type LoginProps = {
+  authentication: Authentication;
+};
+
+function Login({ authentication }: LoginProps) {
   const [email, setEmail] = React.useState('');
   const [password, setPassword] = React.useState('');
   const [loading] = React.useState(false);
+
+  async function handleSubmit(event: React.FormEvent) {
+    event.preventDefault();
+
+    try {
+      await authentication.auth({
+        email,
+        password,
+      });
+    } catch (error) {
+      console.error(error);
+    }
+  }
 
   return (
     <div className={styles.container}>
       <div className={styles.login}>
         <h1>login</h1>
-        <form className={styles.login__form}>
+        <form className={styles.login__form} onSubmit={handleSubmit}>
           <Input
             type="email"
             name="email"

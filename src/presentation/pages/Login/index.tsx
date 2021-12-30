@@ -10,11 +10,17 @@ import { Authentication } from '@/domain/useCases';
 // styles
 import styles from './styles.module.scss';
 
-type LoginProps = {
-  authentication: Authentication;
+type Data = {
+  email: string;
+  password: string;
 };
 
-function Login({ authentication }: LoginProps) {
+type LoginProps = {
+  authentication: Authentication;
+  validation: (data: Data) => Promise<void>;
+};
+
+function Login({ authentication, validation }: LoginProps) {
   const [email, setEmail] = React.useState('');
   const [password, setPassword] = React.useState('');
   const [loading] = React.useState(false);
@@ -23,12 +29,14 @@ function Login({ authentication }: LoginProps) {
     event.preventDefault();
 
     try {
+      await validation({ email, password });
+
       await authentication.auth({
         email,
         password,
       });
-    } catch (error) {
-      console.error(error);
+    } catch (err) {
+      console.log(err);
     }
   }
 

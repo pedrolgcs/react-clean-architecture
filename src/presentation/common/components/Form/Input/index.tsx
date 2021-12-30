@@ -13,7 +13,7 @@ type InputProps = React.InputHTMLAttributes<HTMLInputElement> & {
   error?: string;
 };
 
-function Input({ icon: Icon, value, ...props }: InputProps) {
+function Input({ icon: Icon, value, error, ...props }: InputProps) {
   const [isFocused, setIsFocused] = React.useState(false);
   const [isFilled, setIsFilled] = React.useState(false);
 
@@ -27,20 +27,23 @@ function Input({ icon: Icon, value, ...props }: InputProps) {
   }, [value]);
 
   return (
-    <div
-      className={cx(styles.container, {
-        'container--focused': isFocused,
-        'container--filed': isFilled,
-      })}
-    >
-      {Icon && <Icon />}
-      <input
-        type="text"
-        onFocus={handleInputFocus}
-        onBlur={handleInputBlur}
-        {...props}
-      />
-    </div>
+    <>
+      <div
+        className={cx(styles.container, {
+          'container--focused': isFocused,
+          'container--filed': isFilled,
+        })}
+      >
+        {Icon && <Icon />}
+        <input
+          type="text"
+          onFocus={handleInputFocus}
+          onBlur={handleInputBlur}
+          {...props}
+        />
+      </div>
+      {error && <span className={styles.error}>{error}</span>}
+    </>
   );
 }
 

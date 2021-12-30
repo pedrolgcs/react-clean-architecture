@@ -21,15 +21,20 @@ type LoginProps = {
 function Login({ authentication, validation }: LoginProps) {
   const [email, setEmail] = React.useState('');
   const [password, setPassword] = React.useState('');
+  const [erros, setErros] = React.useState({} as { [key: string]: string });
   const [loading] = React.useState(false);
+
+  console.log(erros);
 
   async function handleSubmit(event: React.FormEvent) {
     event.preventDefault();
 
-    const errors = await validation.validate({ email, password });
+    setErros({});
 
-    if (errors) {
-      console.log(errors);
+    const verifyErrors = await validation.validate({ email, password });
+
+    if (verifyErrors) {
+      setErros(verifyErrors);
       return;
     }
 
@@ -53,6 +58,7 @@ function Login({ authentication, validation }: LoginProps) {
             name="email"
             icon={FiMail}
             value={email}
+            error={erros?.email}
             onChange={event => setEmail(event.target.value)}
             autoComplete="off"
             placeholder="Email"
@@ -63,6 +69,7 @@ function Login({ authentication, validation }: LoginProps) {
             value={password}
             onChange={event => setPassword(event.target.value)}
             icon={FiLock}
+            error={erros?.password}
             placeholder="password"
           />
           <button type="submit" className={styles.login__button}>

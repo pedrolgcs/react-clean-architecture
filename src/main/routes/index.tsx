@@ -2,7 +2,7 @@ import { ReactLocation, Outlet, Router, Link, useMatch } from 'react-location';
 import { ReactLocationDevtools as ReactDevTools } from 'react-location-devtools';
 
 // pages
-import { Login } from '@/presentation/pages';
+import { makeLogin as Login } from '@/main/factories/pages';
 
 // inicialize
 const location = new ReactLocation();

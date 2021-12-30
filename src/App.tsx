@@ -7,7 +7,7 @@ import {
   Outlet,
   Router,
   ReactLocationDevtools,
-} from '@/presentation/routes';
+} from '@/main/routes';
 
 function App() {
   return (

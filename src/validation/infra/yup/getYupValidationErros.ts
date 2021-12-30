@@ -4,7 +4,7 @@ interface Errors {
   [key: string]: string;
 }
 
-function getValidationErros(err: ValidationError): Errors {
+function getYupValidationErros(err: ValidationError): Errors {
   const validationErrors: Errors = {};
 
   err.inner.forEach(error => {
@@ -14,4 +14,4 @@ function getValidationErros(err: ValidationError): Errors {
   return validationErrors;
 }
 
-export { getValidationErros };
+export { getYupValidationErros };

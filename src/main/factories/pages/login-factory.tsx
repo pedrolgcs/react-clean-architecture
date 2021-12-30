@@ -5,11 +5,14 @@ import { Login } from '@/presentation/pages';
 import { makeRemoteAuthentication } from '@/main/factories/useCases';
 
 // validators
-import { validate } from '@/validation/validators/login';
+import { makeLoginValidation } from '@/main/factories/validations/login-validation-factory';
 
 function makeLogin() {
   return (
-    <Login authentication={makeRemoteAuthentication()} validation={validate} />
+    <Login
+      authentication={makeRemoteAuthentication()}
+      validation={makeLoginValidation()}
+    />
   );
 }
 

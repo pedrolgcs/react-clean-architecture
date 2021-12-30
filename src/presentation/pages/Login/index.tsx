@@ -7,17 +7,15 @@ import { Input, Spinner } from '@/presentation/common/components';
 // useCases
 import { Authentication } from '@/domain/useCases';
 
+// protocols
+import { Validation } from '@/validation/protocols/validation';
+
 // styles
 import styles from './styles.module.scss';
 
-type Data = {
-  email: string;
-  password: string;
-};
-
 type LoginProps = {
   authentication: Authentication;
-  validation: (data: Data) => Promise<void>;
+  validation: Validation;
 };
 
 function Login({ authentication, validation }: LoginProps) {
@@ -28,9 +26,14 @@ function Login({ authentication, validation }: LoginProps) {
   async function handleSubmit(event: React.FormEvent) {
     event.preventDefault();
 
-    try {
-      await validation({ email, password });
+    const errors = await validation.validate({ email, password });
 
+    if (errors) {
+      console.log(errors);
+      return;
+    }
+
+    try {
       await authentication.auth({
         email,
         password,

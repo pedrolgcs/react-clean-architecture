@@ -9,7 +9,7 @@ describe('Login', () => {
     expect(screen.getByText(/login/i)).toBeInTheDocument();
   });
 
-  it('should not render spinner in initial render', () => {
+  it('should not render spinner on start', () => {
     render(<Login />);
     expect(screen.getByTestId('spinner-wrap').childElementCount).toBe(0);
   });

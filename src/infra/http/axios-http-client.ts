@@ -3,8 +3,8 @@ import axios, { AxiosResponse } from 'axios';
 // protocols
 import { HttpRequest, HttpResponse, HttpClient } from '@/data/protocols/http';
 
-export class AxiosHttpClient implements HttpClient {
-  async request(data: HttpRequest): Promise<HttpResponse> {
+export class AxiosHttpClient<R> implements HttpClient {
+  async request(data: HttpRequest): Promise<HttpResponse<R>> {
     let axiosResponse: AxiosResponse;
 
     try {

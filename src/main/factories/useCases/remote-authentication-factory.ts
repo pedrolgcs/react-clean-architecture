@@ -1,13 +1,15 @@
+// factories
 import { makeApiUrl, makeAxiosHttpClient } from '@/main/factories/http';
 
 // domain
 import { Authentication } from '@/domain/useCases/authentication';
+import { AccountModel } from '@/domain/models';
 
 // useCase
 import { RemoteAuthentication } from '@/data/useCases/authentication/remote-authentication';
 
 export const makeRemoteAuthentication = (): Authentication => {
-  const url = makeApiUrl('login');
-  const httpClient = makeAxiosHttpClient();
-  return new RemoteAuthentication(url, makeAxiosHttpClient());
+  const url = makeApiUrl('/login');
+  const httpClient = makeAxiosHttpClient<AccountModel>();
+  return new RemoteAuthentication(url, httpClient);
 };

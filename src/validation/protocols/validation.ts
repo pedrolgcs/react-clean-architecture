@@ -3,5 +3,5 @@ export type Errors = {
 };
 
 export interface Validation {
-  validate: (data: unknown) => Promise<Errors | void>;
+  validate: (data: unknown) => Promise<Errors>;
 }

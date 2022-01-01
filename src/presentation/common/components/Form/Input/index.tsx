@@ -13,7 +13,10 @@ type InputProps = React.InputHTMLAttributes<HTMLInputElement> & {
   error?: string;
 };
 
-function Input({ icon: Icon, value, error, ...props }: InputProps) {
+const InputBase: React.ForwardRefRenderFunction<
+  HTMLInputElement,
+  InputProps
+> = ({ icon: Icon, value, error, ...props }, ref) => {
   const [isFocused, setIsFocused] = React.useState(false);
   const [isFilled, setIsFilled] = React.useState(false);
 
@@ -39,12 +42,13 @@ function Input({ icon: Icon, value, error, ...props }: InputProps) {
           type="text"
           onFocus={handleInputFocus}
           onBlur={handleInputBlur}
+          ref={ref}
           {...props}
         />
       </div>
       {error && <span className={styles.error}>{error}</span>}
     </>
   );
-}
+};
 
-export { Input };
+export const Input = React.forwardRef(InputBase);

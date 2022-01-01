@@ -24,8 +24,6 @@ function Login({ authentication, validation }: LoginProps) {
   const [erros, setErros] = React.useState({} as { [key: string]: string });
   const [loading] = React.useState(false);
 
-  console.log(erros);
-
   async function handleSubmit(event: React.FormEvent) {
     event.preventDefault();
 

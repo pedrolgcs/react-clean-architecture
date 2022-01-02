@@ -9,7 +9,7 @@ const cx = classnames.bind(styles);
 
 type InputProps = React.InputHTMLAttributes<HTMLInputElement> & {
   icon?: React.ComponentType<IconBaseProps>;
-  value: string;
+  value?: string;
   error?: string;
 };
 
@@ -35,6 +35,7 @@ const InputBase: React.ForwardRefRenderFunction<
         className={cx(styles.container, {
           'container--focused': isFocused,
           'container--filed': isFilled,
+          'container--error': !!error,
         })}
       >
         {Icon && <Icon />}
@@ -46,7 +47,7 @@ const InputBase: React.ForwardRefRenderFunction<
           {...props}
         />
       </div>
-      {error && <span className={styles.error}>{error}</span>}
+      {error && <span className={styles.container__error}>{error}</span>}
     </>
   );
 };

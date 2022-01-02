@@ -1,5 +1,7 @@
 import React from 'react';
 import { FiMail, FiLock } from 'react-icons/fi';
+import { useForm, SubmitHandler } from 'react-hook-form';
+import toast from 'react-hot-toast';
 
 // components
 import { Input, Spinner } from '@/presentation/common/components';
@@ -13,23 +15,25 @@ import { Validation } from '@/validation/protocols/validation';
 // styles
 import styles from './styles.module.scss';
 
+type Inputs = {
+  email: string;
+  password: string;
+};
+
 type LoginProps = {
   authentication: Authentication;
   validation: Validation;
 };
 
 function Login({ authentication, validation }: LoginProps) {
-  const [email, setEmail] = React.useState('');
-  const [password, setPassword] = React.useState('');
+  const { register, handleSubmit } = useForm<Inputs>();
   const [erros, setErros] = React.useState({} as { [key: string]: string });
   const [loading] = React.useState(false);
 
-  async function handleSubmit(event: React.FormEvent) {
-    event.preventDefault();
-
+  const onSubmit: SubmitHandler<Inputs> = async data => {
     setErros({});
 
-    const verifyErrors = await validation.validate({ email, password });
+    const verifyErrors = await validation.validate(data);
 
     if (verifyErrors) {
       setErros(verifyErrors);
@@ -37,35 +41,31 @@ function Login({ authentication, validation }: LoginProps) {
     }
 
     try {
-      await authentication.auth({
-        email,
-        password,
-      });
-    } catch (err) {
-      console.log(err);
+      const response = await authentication.auth(data);
+      toast.success(`Welcome ${response.accessToken}`);
+    } catch (error) {
+      toast.error(error.message);
     }
-  }
+  };
 
   return (
     <div className={styles.container}>
       <div className={styles.login}>
         <h1>login</h1>
-        <form className={styles.login__form} onSubmit={handleSubmit}>
+        <form className={styles.login__form} onSubmit={handleSubmit(onSubmit)}>
           <Input
             type="email"
             name="email"
             icon={FiMail}
-            value={email}
+            {...register('email')}
             error={erros?.email}
-            onChange={event => setEmail(event.target.value)}
             autoComplete="off"
             placeholder="Email"
           />
           <Input
             type="password"
             name="password"
-            value={password}
-            onChange={event => setPassword(event.target.value)}
+            {...register('password')}
             icon={FiLock}
             error={erros?.password}
             placeholder="password"

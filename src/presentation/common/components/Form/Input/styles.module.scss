@@ -38,6 +38,14 @@
   }
 }
 
-.error {
-  color: red;
+.container--error {
+  border-color: var(--red);
+
+  > svg {
+    color: var(--red);
+  }
+}
+
+.container__error {
+  color: var(--red);
 }

@@ -1,11 +1,11 @@
 // protocols
-import { Validation } from '@/validation/protocols/validation';
+import { Validation } from '@/presentation/protocols';
 
 // validate
-import { YupValidate } from '@/infra/validation/yup/yup-validate';
+import { YupValidate } from '@/validation/validators/yup/yup-validate';
 
 // schema
-import { loginSchema } from '@/infra/validation/yup/schemas/login-schema';
+import { loginSchema } from '@/validation/validators/yup/schemas/login-schema';
 
 const makeLoginValidation = (): Validation => {
   return new YupValidate(loginSchema);

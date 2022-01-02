@@ -4,7 +4,7 @@ import * as Yup from 'yup';
 import { getYupValidationErros } from './getYupValidationErros';
 
 // protocols
-import { Validation, Errors } from '@/validation/protocols/validation';
+import { Validation, Errors } from '@/presentation/protocols';
 
 class YupValidate implements Validation {
   private schema: Yup.SchemaOf<unknown>;
@@ -13,7 +13,7 @@ class YupValidate implements Validation {
     this.schema = schema;
   }
 
-  async validate(data: unknown): Promise<Errors | void> {
+  async validate(data: unknown): Promise<Errors> {
     try {
       await this.schema.validate(data, { abortEarly: false });
     } catch (err) {

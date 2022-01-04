@@ -6,7 +6,12 @@ type SpinnerProps = {
 };
 
 function Spinner({ ...props }: SpinnerProps) {
-  return <div className={[styles.container, props.className].join(' ')} />;
+  return (
+    <div
+      className={[styles.container, props.className].join(' ')}
+      data-testid="spinner"
+    />
+  );
 }
 
 export { Spinner };

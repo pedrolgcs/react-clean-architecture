@@ -10,7 +10,7 @@ import { Input, Spinner } from '@/presentation/common/components';
 import { Authentication } from '@/domain/useCases';
 
 // protocols
-import { Validation } from '@/validation/protocols/validation';
+import { Validation } from '@/presentation/protocols';
 
 // styles
 import styles from './styles.module.scss';

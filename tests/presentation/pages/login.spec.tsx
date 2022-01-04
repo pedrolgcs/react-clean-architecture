@@ -53,7 +53,6 @@ describe('[PAGES] - Login', () => {
   it('Should be show erros on validation failed', async () => {
     const emailError = faker.random.words();
     const passwordError = faker.random.words();
-
     makeSut({
       validationError: { email: emailError, password: passwordError },
     });

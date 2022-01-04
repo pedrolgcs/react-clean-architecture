@@ -14,7 +14,7 @@ function App() {
     <>
       <Router location={location} routes={routes}>
         <Outlet />
-        {import.meta.env.DEV && <ReactLocationDevtools />}
+        {process.env.NODE_ENV === 'development' && <ReactLocationDevtools />}
       </Router>
       <Toaster />
     </>

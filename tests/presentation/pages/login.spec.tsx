@@ -1,10 +1,13 @@
-import { screen, render } from '@testing-library/react';
+import { screen, render, fireEvent, waitFor } from '@testing-library/react';
+import faker from 'faker';
 
+// page
 import { Login } from '@/presentation/pages/Login';
 
 // mocks
 import { AuthenticationSpy } from '@/tests/domain/mocks';
 import { MockValidate } from '@/tests/validation/mocks/validate';
+import { populateField } from '@/tests/presentation/mocks';
 
 type SutParams = {
   validationError: string;
@@ -23,10 +26,42 @@ const makeSut = (params?: SutParams) => {
   };
 };
 
+const simulateValidSubmit = async (
+  email = faker.internet.email(),
+  password = faker.internet.password(),
+): Promise<void> => {
+  populateField('email', email);
+  populateField('password', password);
+
+  const form = screen.getByTestId('form');
+
+  fireEvent.submit(form);
+
+  await waitFor(() => form);
+};
+
 describe('[PAGES] - Login', () => {
   it('Should be render correctly', () => {
     makeSut();
 
     expect(screen.getByText(/login/i)).toBeInTheDocument();
+  });
+
+  it('Should be render spinner on submit form', async () => {
+    makeSut();
+
+    await simulateValidSubmit();
+
+    expect(screen.queryByTestId('spinner-wrap').childElementCount).toBe(1);
+  });
+
+  it('Should be submit form with correctly values', async () => {
+    const { authenticationSpy } = makeSut();
+    const email = faker.internet.email();
+    const password = faker.internet.password();
+
+    await simulateValidSubmit(email, password);
+
+    expect(authenticationSpy.params).toEqual({ email, password });
   });
 });

@@ -47,16 +47,19 @@ function Login({ authentication, validation }: LoginProps) {
       toast.success(`Welcome ${response.accessToken}`);
     } catch (error) {
       toast.error(error.message);
+      setLoading(false);
     }
-
-    setLoading(false);
   };
 
   return (
     <div className={styles.container}>
       <div className={styles.login}>
         <h1>login</h1>
-        <form className={styles.login__form} onSubmit={handleSubmit(onSubmit)}>
+        <form
+          className={styles.login__form}
+          onSubmit={handleSubmit(onSubmit)}
+          data-testid="form"
+        >
           <Input
             type="email"
             name="email"
@@ -65,6 +68,7 @@ function Login({ authentication, validation }: LoginProps) {
             error={erros?.email}
             autoComplete="off"
             placeholder="Email"
+            data-testid="email"
           />
           <Input
             type="password"
@@ -73,11 +77,13 @@ function Login({ authentication, validation }: LoginProps) {
             icon={FiLock}
             error={erros?.password}
             placeholder="password"
+            data-testid="password"
           />
           <button
             type="submit"
             disabled={loading}
             className={styles.login__button}
+            data-testid="submit-button"
           >
             Entrar
           </button>

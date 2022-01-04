@@ -11,12 +11,13 @@ type InputProps = React.InputHTMLAttributes<HTMLInputElement> & {
   icon?: React.ComponentType<IconBaseProps>;
   value?: string;
   error?: string;
+  dataTestid?: string;
 };
 
 const InputBase: React.ForwardRefRenderFunction<
   HTMLInputElement,
   InputProps
-> = ({ icon: Icon, value, error, ...props }, ref) => {
+> = ({ icon: Icon, value, dataTestid, error, ...props }, ref) => {
   const [isFocused, setIsFocused] = React.useState(false);
   const [isFilled, setIsFilled] = React.useState(false);
 
@@ -44,6 +45,7 @@ const InputBase: React.ForwardRefRenderFunction<
           onFocus={handleInputFocus}
           onBlur={handleInputBlur}
           ref={ref}
+          data-testid={dataTestid}
           {...props}
         />
       </div>

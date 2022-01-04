@@ -38,6 +38,7 @@ function Login({ authentication, validation }: LoginProps) {
 
     if (verifyErrors) {
       setErros(verifyErrors);
+      setLoading(false);
       return;
     }
 
@@ -73,7 +74,11 @@ function Login({ authentication, validation }: LoginProps) {
             error={erros?.password}
             placeholder="password"
           />
-          <button type="submit" className={styles.login__button}>
+          <button
+            type="submit"
+            disabled={loading}
+            className={styles.login__button}
+          >
             Entrar
           </button>
         </form>

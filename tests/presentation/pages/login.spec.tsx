@@ -4,17 +4,20 @@ import faker from 'faker';
 // page
 import { Login } from '@/presentation/pages/Login';
 
+// protocols
+import { Errors } from '@/presentation/protocols';
+
 // mocks
 import { AuthenticationSpy } from '@/tests/domain/mocks';
 import { MockValidate } from '@/tests/validation/mocks/validate';
 import { populateField } from '@/tests/presentation/mocks';
 
 type SutParams = {
-  validationError: string;
+  validationError: Errors;
 };
 
 const makeSut = (params?: SutParams) => {
-  const validationMock = new MockValidate(params);
+  const validationMock = new MockValidate(params?.validationError);
   const authenticationSpy = new AuthenticationSpy();
   render(
     <Login authentication={authenticationSpy} validation={validationMock} />,
@@ -45,6 +48,20 @@ describe('[PAGES] - Login', () => {
     makeSut();
 
     expect(screen.getByText(/login/i)).toBeInTheDocument();
+  });
+
+  it('Should be show erros on validation failed', async () => {
+    const emailError = faker.random.words();
+    const passwordError = faker.random.words();
+
+    makeSut({
+      validationError: { email: emailError, password: passwordError },
+    });
+
+    await simulateValidSubmit();
+
+    expect(screen.getByText(emailError)).toBeInTheDocument();
+    expect(screen.getByText(passwordError)).toBeInTheDocument();
   });
 
   it('Should be render spinner on submit form', async () => {

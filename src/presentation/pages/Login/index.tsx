@@ -28,9 +28,10 @@ type LoginProps = {
 function Login({ authentication, validation }: LoginProps) {
   const { register, handleSubmit } = useForm<Inputs>();
   const [erros, setErros] = React.useState({} as { [key: string]: string });
-  const [loading] = React.useState(false);
+  const [loading, setLoading] = React.useState(false);
 
   const onSubmit: SubmitHandler<Inputs> = async data => {
+    setLoading(true);
     setErros({});
 
     const verifyErrors = await validation.validate(data);
@@ -46,6 +47,8 @@ function Login({ authentication, validation }: LoginProps) {
     } catch (error) {
       toast.error(error.message);
     }
+
+    setLoading(false);
   };
 
   return (

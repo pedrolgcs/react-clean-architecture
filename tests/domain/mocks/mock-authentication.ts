@@ -25,6 +25,7 @@ class AuthenticationSpy implements Authentication {
 
   async auth(params: AuthenticationParams): Promise<AccountModel> {
     this.params = params;
+    this.callsCount += 1;
     return this.account;
   }
 }

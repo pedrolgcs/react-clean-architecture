@@ -38,16 +38,11 @@ const InputBase: React.ForwardRefRenderFunction<
           'container--filed': isFilled,
           'container--error': !!error,
         })}
+        onBlur={handleInputBlur}
+        onFocus={handleInputFocus}
       >
         {Icon && <Icon />}
-        <input
-          type="text"
-          onFocus={handleInputFocus}
-          onBlur={handleInputBlur}
-          ref={ref}
-          data-testid={dataTestid}
-          {...props}
-        />
+        <input type="text" ref={ref} data-testid={dataTestid} {...props} />
       </div>
       {error && <span className={styles.container__error}>{error}</span>}
     </>

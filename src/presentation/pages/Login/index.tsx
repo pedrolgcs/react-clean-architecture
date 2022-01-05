@@ -1,6 +1,5 @@
 import React from 'react';
 import { FiMail, FiLock } from 'react-icons/fi';
-import { useForm, SubmitHandler } from 'react-hook-form';
 import toast from 'react-hot-toast';
 
 // components
@@ -15,24 +14,29 @@ import { Validation } from '@/presentation/protocols';
 // styles
 import styles from './styles.module.scss';
 
-type Inputs = {
-  email: string;
-  password: string;
-};
-
 type LoginProps = {
   authentication: Authentication;
   validation: Validation;
 };
 
 function Login({ authentication, validation }: LoginProps) {
-  const { register, handleSubmit } = useForm<Inputs>();
+  const [email, setEmail] = React.useState('');
+  const [password, setPassword] = React.useState('');
+  // const { register, handleSubmit, watch } = useForm<Inputs>();
+
   const [erros, setErros] = React.useState({} as { [key: string]: string });
   const [loading, setLoading] = React.useState(false);
 
-  const onSubmit: SubmitHandler<Inputs> = async data => {
+  async function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
+    event.preventDefault();
+
     setLoading(true);
     setErros({});
+
+    const data = {
+      email,
+      password,
+    };
 
     const verifyErrors = await validation.validate(data);
 
@@ -49,7 +53,7 @@ function Login({ authentication, validation }: LoginProps) {
       toast.error(error.message);
       setLoading(false);
     }
-  };
+  }
 
   return (
     <div className={styles.container}>
@@ -57,14 +61,15 @@ function Login({ authentication, validation }: LoginProps) {
         <h1>login</h1>
         <form
           className={styles.login__form}
-          onSubmit={handleSubmit(onSubmit)}
+          onSubmit={handleSubmit}
           data-testid="form"
         >
           <Input
             type="email"
             name="email"
             icon={FiMail}
-            {...register('email')}
+            value={email}
+            onChange={event => setEmail(event.target.value)}
             error={erros?.email}
             autoComplete="off"
             placeholder="Email"
@@ -73,7 +78,8 @@ function Login({ authentication, validation }: LoginProps) {
           <Input
             type="password"
             name="password"
-            {...register('password')}
+            value={password}
+            onChange={event => setPassword(event.target.value)}
             icon={FiLock}
             error={erros?.password}
             placeholder="password"

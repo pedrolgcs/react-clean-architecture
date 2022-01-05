@@ -37,8 +37,9 @@ const simulateValidSubmit = async (
   populateField('password', password);
 
   const form = screen.getByTestId('form');
+  const submitButton = screen.getByTestId('submit-button');
 
-  fireEvent.submit(form);
+  fireEvent.click(submitButton);
 
   await waitFor(() => form);
 };
@@ -79,5 +80,16 @@ describe('[PAGES] - Login', () => {
     await simulateValidSubmit(email, password);
 
     expect(authenticationSpy.params).toEqual({ email, password });
+  });
+
+  it('Should be call Authentication only once at a time', async () => {
+    const { authenticationSpy } = makeSut();
+    const email = faker.internet.email();
+    const password = faker.internet.password();
+
+    await simulateValidSubmit(email, password);
+    await simulateValidSubmit(email, password);
+
+    expect(authenticationSpy.callsCount).toBe(1);
   });
 });

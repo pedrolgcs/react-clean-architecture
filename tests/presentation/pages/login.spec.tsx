@@ -1,5 +1,7 @@
 import { screen, render, fireEvent, waitFor } from '@testing-library/react';
+import { mocked } from 'ts-jest/utils';
 import faker from 'faker';
+import toast from 'react-hot-toast';
 
 // page
 import { Login } from '@/presentation/pages/Login';
@@ -11,6 +13,8 @@ import { Errors } from '@/presentation/protocols';
 import { AuthenticationSpy } from '@/tests/domain/mocks';
 import { MockValidate } from '@/tests/validation/mocks/validate';
 import { populateField } from '@/tests/presentation/mocks';
+
+jest.mock('react-hot-toast');
 
 type SutParams = {
   validationError: Errors;
@@ -84,12 +88,32 @@ describe('[PAGES] - Login', () => {
 
   it('Should be call Authentication only once at a time', async () => {
     const { authenticationSpy } = makeSut();
-    const email = faker.internet.email();
-    const password = faker.internet.password();
 
-    await simulateValidSubmit(email, password);
-    await simulateValidSubmit(email, password);
+    await simulateValidSubmit();
+    await simulateValidSubmit();
 
     expect(authenticationSpy.callsCount).toBe(1);
+  });
+
+  it('Should be show success message if Authentication done', async () => {
+    makeSut();
+    const toastMocked = mocked(toast);
+
+    await simulateValidSubmit();
+
+    expect(toastMocked.success).toHaveBeenCalledWith(expect.any(String));
+  });
+
+  it('Should be show error if Authentication failed', async () => {
+    const { authenticationSpy } = makeSut();
+    const toastMocked = mocked(toast);
+    jest
+      .spyOn(authenticationSpy, 'auth')
+      .mockReturnValueOnce(Promise.reject(new Error('any_error')));
+
+    await simulateValidSubmit();
+
+    expect(toastMocked.error).toHaveBeenCalledWith('any_error');
+    expect(toastMocked.error).toHaveBeenCalledTimes(1);
   });
 });

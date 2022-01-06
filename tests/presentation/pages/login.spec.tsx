@@ -1,5 +1,4 @@
 import { screen, render, fireEvent, waitFor } from '@testing-library/react';
-import { mocked } from 'ts-jest/utils';
 import faker from 'faker';
 import toast from 'react-hot-toast';
 
@@ -97,23 +96,24 @@ describe('[PAGES] - Login', () => {
 
   it('Should be show success message if Authentication done', async () => {
     makeSut();
-    const toastMocked = mocked(toast);
+    const toastSpy = jest.spyOn(toast, 'success');
 
     await simulateValidSubmit();
 
-    expect(toastMocked.success).toHaveBeenCalledWith(expect.any(String));
+    expect(toastSpy).toHaveBeenCalledWith(expect.any(String));
   });
 
   it('Should be show error if Authentication failed', async () => {
     const { authenticationSpy } = makeSut();
-    const toastMocked = mocked(toast);
+    const toastSpy = jest.spyOn(toast, 'error');
+
     jest
       .spyOn(authenticationSpy, 'auth')
       .mockReturnValueOnce(Promise.reject(new Error('any_error')));
 
     await simulateValidSubmit();
 
-    expect(toastMocked.error).toHaveBeenCalledWith('any_error');
-    expect(toastMocked.error).toHaveBeenCalledTimes(1);
+    expect(toastSpy).toHaveBeenCalledWith('any_error');
+    expect(toastSpy).toHaveBeenCalledTimes(1);
   });
 });

@@ -22,7 +22,6 @@ type LoginProps = {
 function Login({ authentication, validation }: LoginProps) {
   const [email, setEmail] = React.useState('');
   const [password, setPassword] = React.useState('');
-  // const { register, handleSubmit, watch } = useForm<Inputs>();
 
   const [erros, setErros] = React.useState({} as { [key: string]: string });
   const [loading, setLoading] = React.useState(false);

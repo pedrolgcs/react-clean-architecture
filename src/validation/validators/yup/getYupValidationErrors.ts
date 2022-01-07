@@ -1,10 +1,9 @@
 import { ValidationError } from 'yup';
 
-interface Errors {
-  [key: string]: string;
-}
+// protocols
+import { Errors } from '@/presentation/protocols';
 
-function getYupValidationErros(err: ValidationError): Errors {
+function getYupValidationErrors(err: ValidationError): Errors {
   const validationErrors: Errors = {};
 
   err.inner.forEach(error => {
@@ -14,4 +13,4 @@ function getYupValidationErros(err: ValidationError): Errors {
   return validationErrors;
 }
 
-export { getYupValidationErros };
+export { getYupValidationErrors };

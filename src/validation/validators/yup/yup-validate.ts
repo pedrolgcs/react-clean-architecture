@@ -1,7 +1,7 @@
 import * as Yup from 'yup';
 
 // error handler
-import { getYupValidationErros } from './getYupValidationErros';
+import { getYupValidationErrors } from './getYupValidationErrors';
 
 // protocols
 import { Validation, Errors } from '@/presentation/protocols';
@@ -18,7 +18,7 @@ class YupValidate implements Validation {
       await this.schema.validate(data, { abortEarly: false });
     } catch (err) {
       if (err instanceof Yup.ValidationError) {
-        return getYupValidationErros(err);
+        return getYupValidationErrors(err);
       }
     }
 

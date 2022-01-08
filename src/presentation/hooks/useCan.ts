@@ -12,17 +12,26 @@ type UseCanParams = {
 function useCan({ permissions, roles }: UseCanParams) {
   const { user, isAuthenticated } = useAuth();
 
-  if (!isAuthenticated || !user) {
+  // user not authenticated
+  if (!isAuthenticated) {
     return false;
   }
 
-  const userHasValidPermissions = validateUserPermissions({
-    user,
-    permissions,
-    roles,
-  });
+  // user need to have permission or role
+  if (permissions?.length || roles?.length) {
+    return validateUserPermissions({
+      user,
+      permissions,
+      roles,
+    });
+  }
 
-  return userHasValidPermissions;
+  // user authenticated and has no permissions or roles
+  if (isAuthenticated) {
+    return true;
+  }
+
+  return false;
 }
 
 export { useCan };

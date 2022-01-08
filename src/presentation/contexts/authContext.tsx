@@ -1,6 +1,7 @@
 import * as React from 'react';
 
 type User = {
+  name: string;
   email: string;
   permissions: string[];
   roles: string[];

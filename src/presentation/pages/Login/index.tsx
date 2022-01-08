@@ -8,6 +8,9 @@ import { Input, Spinner } from '@/presentation/common/components';
 // useCases
 import { Authentication } from '@/domain/useCases';
 
+// contexts
+import { useAuth } from '@/presentation/contexts/authContext';
+
 // protocols
 import { Validation } from '@/presentation/protocols';
 
@@ -22,9 +25,9 @@ type LoginProps = {
 function Login({ authentication, validation }: LoginProps) {
   const [email, setEmail] = React.useState('');
   const [password, setPassword] = React.useState('');
-
   const [erros, setErros] = React.useState({} as { [key: string]: string });
   const [loading, setLoading] = React.useState(false);
+  const { setToken } = useAuth();
 
   async function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault();
@@ -47,6 +50,7 @@ function Login({ authentication, validation }: LoginProps) {
 
     try {
       const response = await authentication.auth(data);
+      setToken(response.accessToken);
       toast.success(`Welcome ${response.accessToken}`);
     } catch (error) {
       toast.error(error.message);

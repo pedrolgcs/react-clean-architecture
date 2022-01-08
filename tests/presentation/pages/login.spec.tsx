@@ -115,5 +115,6 @@ describe('[PAGES] - Login', () => {
 
     expect(toastSpy).toHaveBeenCalledWith('any_error');
     expect(toastSpy).toHaveBeenCalledTimes(1);
+    expect(screen.queryByTestId('spinner-wrap').childElementCount).toBe(0);
   });
 });

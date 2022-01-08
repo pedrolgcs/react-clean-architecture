@@ -5,6 +5,9 @@ import toast from 'react-hot-toast';
 // page
 import { Login } from '@/presentation/pages/Login';
 
+// contexts
+import { AuthProvider } from '@/presentation/contexts/authContext';
+
 // protocols
 import { Errors } from '@/presentation/protocols';
 
@@ -23,7 +26,9 @@ const makeSut = (params?: SutParams) => {
   const validationMock = new MockValidate(params?.validationError);
   const authenticationSpy = new AuthenticationSpy();
   render(
-    <Login authentication={authenticationSpy} validation={validationMock} />,
+    <AuthProvider>
+      <Login authentication={authenticationSpy} validation={validationMock} />,
+    </AuthProvider>,
   );
 
   return {

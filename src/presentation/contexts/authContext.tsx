@@ -9,7 +9,7 @@ import { makeUserProfile } from '@/main/factories/useCases';
 type AuthContextValue = {
   user: UserModel | undefined;
   isAuthenticated: boolean;
-  setToken: (token: string) => void;
+  setUserToken: (token: string) => void;
 };
 
 type AuthProviderProps = {
@@ -19,18 +19,25 @@ type AuthProviderProps = {
 // context
 const AuthContext = React.createContext({} as AuthContextValue);
 
-// inicialize
+// initializer
 const getUserProfile = makeUserProfile();
 
 // provider
 function AuthProvider({ children }: AuthProviderProps) {
   const [user, setUser] = React.useState<UserModel>();
+  const [token, setToken] = React.useState(() => {
+    return localStorage.getItem('access_token');
+  });
+
   const isAuthenticated = !!user;
+
+  function setUserToken(token: string) {
+    setToken(token);
+    localStorage.setItem('access_token', token);
+  }
 
   React.useEffect(() => {
     async function loadProfile() {
-      const token = localStorage.getItem('access_token');
-
       if (token) {
         try {
           const profile = await getUserProfile.execute({ token });
@@ -42,14 +49,10 @@ function AuthProvider({ children }: AuthProviderProps) {
     }
 
     loadProfile();
-  }, []);
-
-  function setToken(token: string) {
-    localStorage.setItem('access_token', token);
-  }
+  }, [token]);
 
   return (
-    <AuthContext.Provider value={{ user, isAuthenticated, setToken }}>
+    <AuthContext.Provider value={{ user, isAuthenticated, setUserToken }}>
       {children}
     </AuthContext.Provider>
   );

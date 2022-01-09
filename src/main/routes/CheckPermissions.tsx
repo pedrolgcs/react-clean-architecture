@@ -4,25 +4,15 @@ import * as React from 'react';
 // routes
 import { useNavigate } from '@/main/routes';
 
-// hooks
-import { useCan } from '@/presentation/hooks/useCan';
-
 // contexts
 import { useAuth } from '@/presentation/contexts/authContext';
 
 type PrivateRouterProps = {
   children: React.ReactNode;
-  permissions?: string[];
-  roles?: string[];
   isPrivate?: boolean;
 };
 
-function CheckPermissions({
-  roles,
-  permissions,
-  isPrivate = false,
-  children,
-}: PrivateRouterProps) {
+function CheckPermissions({ isPrivate = false, children }: PrivateRouterProps) {
   const { isAuthenticated } = useAuth();
   const navigate = useNavigate();
 
@@ -30,20 +20,11 @@ function CheckPermissions({
     navigate({ to: '/dashboard' });
   }
 
-  if (!isPrivate && !isAuthenticated) {
-    return <>{children}</>;
-  }
-
-  const userHasPermission = useCan({
-    permissions,
-    roles,
-  });
-
-  if (!userHasPermission) {
+  if (isPrivate && !isAuthenticated) {
     navigate({ to: '/' });
-  } else {
-    return <>{children}</>;
   }
+
+  return <>{children}</>;
 }
 
 export { CheckPermissions };

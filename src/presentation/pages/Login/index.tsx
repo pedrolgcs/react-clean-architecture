@@ -11,6 +11,9 @@ import { Authentication } from '@/domain/useCases';
 // contexts
 import { useAuth } from '@/presentation/contexts/authContext';
 
+// routes
+import { useNavigate } from '@/main/routes';
+
 // protocols
 import { Validation } from '@/presentation/protocols';
 
@@ -27,7 +30,8 @@ function Login({ authentication, validation }: LoginProps) {
   const [password, setPassword] = React.useState('');
   const [erros, setErros] = React.useState({} as { [key: string]: string });
   const [loading, setLoading] = React.useState(false);
-  const { setToken } = useAuth();
+  const { setUserToken } = useAuth();
+  const navigate = useNavigate();
 
   async function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault();
@@ -50,8 +54,9 @@ function Login({ authentication, validation }: LoginProps) {
 
     try {
       const response = await authentication.execute(data);
-      setToken(response.accessToken);
+      setUserToken(response.accessToken);
       toast.success(`Welcome ${response.accessToken}`);
+      navigate({ to: '/dashboard' });
     } catch (error) {
       toast.error(error.message);
       setLoading(false);

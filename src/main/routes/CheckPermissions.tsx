@@ -41,9 +41,9 @@ function CheckPermissions({
 
   if (!userHasPermission) {
     navigate({ to: '/' });
+  } else {
+    return <>{children}</>;
   }
-
-  return <>{children}</>;
 }
 
 export { CheckPermissions };

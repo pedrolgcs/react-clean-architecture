@@ -1,2 +1,2 @@
 export * from './authentication';
-export * from './get-user-profile';
+export * from './user-profile';

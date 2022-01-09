@@ -8,9 +8,9 @@ import { InvalidCredentialsError, UnexpectedError } from '@/domain/errors';
 import { UserModel } from '@/domain/models';
 
 // useCases
-import { GetUserProfile, GetUserProfileParams } from '@/domain/useCases/users';
+import { UserProfile, UserProfileParams } from '@/domain/useCases/users';
 
-class GetProfile implements GetUserProfile {
+class RemoteUserProfile implements UserProfile {
   private readonly url: string;
 
   private readonly httpClient: HttpClient<UserModel>;
@@ -20,7 +20,7 @@ class GetProfile implements GetUserProfile {
     this.httpClient = httpClient;
   }
 
-  async execute(params: GetUserProfileParams): Promise<UserModel> {
+  async execute(params: UserProfileParams): Promise<UserModel> {
     const httpResponse = await this.httpClient.request({
       url: this.url,
       method: 'get',
@@ -40,4 +40,4 @@ class GetProfile implements GetUserProfile {
   }
 }
 
-export { GetProfile };
+export { RemoteUserProfile };

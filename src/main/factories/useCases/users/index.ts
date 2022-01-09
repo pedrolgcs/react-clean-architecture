@@ -1,2 +1,2 @@
 export * from './remote-authentication-factory';
-export * from './get-user-profile-factory';
+export * from './remote-user-profile-factory';

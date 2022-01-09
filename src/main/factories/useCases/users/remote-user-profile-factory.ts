@@ -2,16 +2,16 @@
 import { makeApiUrl, makeAxiosHttpClient } from '@/main/factories/http';
 
 // domain
-import { GetUserProfile } from '@/domain/useCases/users';
+import { UserProfile } from '@/domain/useCases/users';
 import { UserModel } from '@/domain/models';
 
 // useCase
-import { GetProfile } from '@/data/useCases/users';
+import { RemoteUserProfile } from '@/data/useCases/users';
 
-const makeGetUserProfile = (): GetUserProfile => {
+const makeUserProfile = (): UserProfile => {
   const url = makeApiUrl('/me');
   const httpClient = makeAxiosHttpClient<UserModel>();
-  return new GetProfile(url, httpClient);
+  return new RemoteUserProfile(url, httpClient);
 };
 
-export { makeGetUserProfile };
+export { makeUserProfile };

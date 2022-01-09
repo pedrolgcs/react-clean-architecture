@@ -2,7 +2,7 @@ import * as React from 'react';
 
 // domain
 import { UserModel } from '@/domain/models';
-import { GetUserProfile } from '@/domain/useCases';
+import { UserProfile } from '@/domain/useCases';
 
 type AuthContextValue = {
   user: UserModel | undefined;
@@ -14,7 +14,7 @@ const AuthContext = React.createContext({} as AuthContextValue);
 
 type AuthProviderProps = {
   children: React.ReactNode;
-  getUserProfile: GetUserProfile;
+  getUserProfile: UserProfile;
 };
 
 function AuthProvider({ getUserProfile, children }: AuthProviderProps) {

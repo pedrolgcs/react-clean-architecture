@@ -23,7 +23,7 @@ class AuthenticationSpy implements Authentication {
 
   callsCount = 0;
 
-  async auth(params: AuthenticationParams): Promise<AccountModel> {
+  async execute(params: AuthenticationParams): Promise<AccountModel> {
     this.params = params;
     this.callsCount += 1;
     return this.account;

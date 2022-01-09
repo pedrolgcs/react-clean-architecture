@@ -20,7 +20,7 @@ class RemoteAuthentication implements Authentication {
     this.httpClient = httpClient;
   }
 
-  async auth(params: AuthenticationParams): Promise<AccountModel> {
+  async execute(params: AuthenticationParams): Promise<AccountModel> {
     const httpResponse = await this.httpClient.request({
       url: this.url,
       method: 'post',

@@ -1,12 +1,12 @@
 import faker from 'faker';
 
-import { GetUserProfile, GetUserProfileParams } from '@/domain/useCases';
+import { UserProfile, UserProfileParams } from '@/domain/useCases';
 import { UserModel } from '@/domain/models';
 
-class GetUserProfileSpy implements GetUserProfile {
+class RemoteUserProfileSpy implements UserProfile {
   private params: Record<string, string>;
 
-  async execute(params: GetUserProfileParams): Promise<UserModel> {
+  async execute(params: UserProfileParams): Promise<UserModel> {
     this.params = params;
 
     return Promise.resolve({
@@ -19,4 +19,4 @@ class GetUserProfileSpy implements GetUserProfile {
   }
 }
 
-export { GetUserProfileSpy };
+export { RemoteUserProfileSpy };

@@ -1,2 +1,2 @@
-export * from './get-profile';
+export * from './remote-user-profile';
 export * from './remote-authentication';

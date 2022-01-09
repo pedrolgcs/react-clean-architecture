@@ -2,7 +2,7 @@
 import { AuthProvider } from '@/presentation/contexts/authContext';
 
 // useCases
-import { makeGetUserProfile } from '@/main/factories/useCases/users';
+import { makeUserProfile } from '@/main/factories/useCases/users';
 
 type MakeLoginProps = {
   children: unknown;
@@ -10,9 +10,7 @@ type MakeLoginProps = {
 
 function makeAuthProvider({ children }: MakeLoginProps) {
   return (
-    <AuthProvider getUserProfile={makeGetUserProfile()}>
-      {children}
-    </AuthProvider>
+    <AuthProvider getUserProfile={makeUserProfile()}>{children}</AuthProvider>
   );
 }
 

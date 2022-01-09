@@ -12,7 +12,7 @@ import { AuthProvider } from '@/presentation/contexts/authContext';
 import { Errors } from '@/presentation/protocols';
 
 // mocks
-import { AuthenticationSpy, GetUserProfileSpy } from '@/tests/domain/mocks';
+import { AuthenticationSpy, RemoteUserProfileSpy } from '@/tests/domain/mocks';
 import { MockValidate } from '@/tests/validation/mocks/validate';
 import { populateField } from '@/tests/presentation/mocks';
 
@@ -25,10 +25,10 @@ type SutParams = {
 const makeSut = (params?: SutParams) => {
   const validationMock = new MockValidate(params?.validationError);
   const authenticationSpy = new AuthenticationSpy();
-  const getUserProfileSpy = new GetUserProfileSpy();
+  const userProfileSpy = new RemoteUserProfileSpy();
 
   render(
-    <AuthProvider getUserProfile={getUserProfileSpy}>
+    <AuthProvider getUserProfile={userProfileSpy}>
       <Login authentication={authenticationSpy} validation={validationMock} />,
     </AuthProvider>,
   );
@@ -115,7 +115,7 @@ describe('[PAGES] - Login', () => {
     const toastSpy = jest.spyOn(toast, 'error');
 
     jest
-      .spyOn(authenticationSpy, 'auth')
+      .spyOn(authenticationSpy, 'execute')
       .mockReturnValueOnce(Promise.reject(new Error('any_error')));
 
     await simulateValidSubmit();

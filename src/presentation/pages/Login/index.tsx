@@ -49,7 +49,7 @@ function Login({ authentication, validation }: LoginProps) {
     }
 
     try {
-      const response = await authentication.auth(data);
+      const response = await authentication.execute(data);
       setToken(response.accessToken);
       toast.success(`Welcome ${response.accessToken}`);
     } catch (error) {

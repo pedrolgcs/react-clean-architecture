@@ -1,14 +1,11 @@
 import * as React from 'react';
 
-type User = {
-  name: string;
-  email: string;
-  permissions: string[];
-  roles: string[];
-};
+// domain
+import { UserModel } from '@/domain/models';
+import { GetUserProfile } from '@/domain/useCases';
 
 type AuthContextValue = {
-  user: User | undefined;
+  user: UserModel | undefined;
   isAuthenticated: boolean;
   setToken: (token: string) => void;
 };
@@ -17,14 +14,32 @@ const AuthContext = React.createContext({} as AuthContextValue);
 
 type AuthProviderProps = {
   children: React.ReactNode;
+  getUserProfile: GetUserProfile;
 };
 
-function AuthProvider({ children }: AuthProviderProps) {
-  const [user] = React.useState<User>();
+function AuthProvider({ getUserProfile, children }: AuthProviderProps) {
+  const [user, setUser] = React.useState<UserModel>();
   const isAuthenticated = !!user;
 
+  React.useEffect(() => {
+    async function loadProfile() {
+      const token = localStorage.getItem('access_token');
+
+      if (token) {
+        try {
+          const profile = await getUserProfile.execute({ token });
+          setUser(profile);
+        } catch (error) {
+          console.log(error);
+        }
+      }
+    }
+
+    loadProfile();
+  }, [getUserProfile]);
+
   function setToken(token: string) {
-    localStorage.setItem('accessToken', token);
+    localStorage.setItem('access_token', token);
   }
 
   return (

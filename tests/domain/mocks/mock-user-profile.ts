@@ -1,7 +1,7 @@
 import faker from 'faker';
 
-import { UserProfile, UserProfileParams } from '@/domain/useCases';
 import { UserModel } from '@/domain/models';
+import { UserProfile, UserProfileParams } from '@/domain/useCases';
 
 class RemoteUserProfileSpy implements UserProfile {
   private params: Record<string, string>;

@@ -2,9 +2,7 @@ import * as React from 'react';
 
 // domain
 import { UserModel } from '@/domain/models';
-
-// useCases
-import { makeUserProfile } from '@/main/factories/useCases';
+import { UserProfile } from '@/domain/useCases/users';
 
 type AuthContextValue = {
   user: UserModel | undefined;
@@ -14,16 +12,14 @@ type AuthContextValue = {
 
 type AuthProviderProps = {
   children: React.ReactNode;
+  getUserProfile: UserProfile;
 };
 
 // context
 const AuthContext = React.createContext({} as AuthContextValue);
 
-// initializer
-const getUserProfile = makeUserProfile();
-
 // provider
-function AuthProvider({ children }: AuthProviderProps) {
+function AuthProvider({ getUserProfile, children }: AuthProviderProps) {
   const [user, setUser] = React.useState<UserModel>();
   const [token, setToken] = React.useState(() => {
     return localStorage.getItem('access_token');
@@ -49,7 +45,7 @@ function AuthProvider({ children }: AuthProviderProps) {
     }
 
     loadProfile();
-  }, [token]);
+  }, [token, getUserProfile]);
 
   return (
     <AuthContext.Provider value={{ user, isAuthenticated, setUserToken }}>

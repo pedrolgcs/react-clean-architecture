@@ -1,7 +1,7 @@
 import { Toaster } from 'react-hot-toast';
 
 // context
-import { AppProvider } from '@/presentation/contexts';
+import { GlobalProvider } from '@/main/factories/providers';
 
 // routes
 import {
@@ -14,13 +14,13 @@ import {
 
 function App() {
   return (
-    <AppProvider>
+    <GlobalProvider>
       <Router location={location} routes={routes}>
         <Outlet />
         {process.env.NODE_ENV === 'development' && <ReactLocationDevtools />}
       </Router>
       <Toaster />
-    </AppProvider>
+    </GlobalProvider>
   );
 }
 

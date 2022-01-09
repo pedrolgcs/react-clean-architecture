@@ -1,13 +1,3 @@
-/*
-import faker from 'faker';
-
-describe('[PAGES] - Login', () => {
-  it('true', () => {
-    expect(true).toBe(true);
-  });
-});
-*/
-
 import { screen, render, fireEvent, waitFor } from '@testing-library/react';
 import faker from 'faker';
 import toast from 'react-hot-toast';

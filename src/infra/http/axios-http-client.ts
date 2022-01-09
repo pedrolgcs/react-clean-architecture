@@ -12,7 +12,10 @@ export class AxiosHttpClient<R> implements HttpClient {
         url: data.url,
         method: data.method,
         data: data.body,
-        headers: data.headers,
+        headers: {
+          'Content-Type': 'application/json',
+          ...data.headers,
+        },
       });
     } catch (error) {
       axiosResponse = error.response;

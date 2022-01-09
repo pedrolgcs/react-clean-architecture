@@ -8,7 +8,7 @@ import { InvalidCredentialsError, UnexpectedError } from '@/domain/errors';
 import { AccountModel } from '@/domain/models';
 
 // useCases
-import { AuthenticationParams, Authentication } from '@/domain/useCases';
+import { AuthenticationParams, Authentication } from '@/domain/useCases/users';
 
 class RemoteAuthentication implements Authentication {
   private readonly url: string;

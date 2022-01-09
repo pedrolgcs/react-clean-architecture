@@ -8,7 +8,7 @@ import { InvalidCredentialsError, UnexpectedError } from '@/domain/errors';
 import { UserModel } from '@/domain/models';
 
 // useCases
-import { GetUserProfile, GetUserProfileParams } from '@/domain/useCases';
+import { GetUserProfile, GetUserProfileParams } from '@/domain/useCases/users';
 
 class GetProfile implements GetUserProfile {
   private readonly url: string;

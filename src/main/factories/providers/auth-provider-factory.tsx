@@ -2,7 +2,7 @@
 import { AuthProvider } from '@/presentation/contexts/authContext';
 
 // useCases
-import { makeGetUserProfile } from '@/main/factories/useCases/user';
+import { makeGetUserProfile } from '@/main/factories/useCases/users';
 
 type MakeLoginProps = {
   children: unknown;

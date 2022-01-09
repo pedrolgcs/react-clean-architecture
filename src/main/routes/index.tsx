@@ -25,7 +25,7 @@ const routes = [
   {
     path: '/',
     element: (
-      <CheckPermissions isPrivate={false}>
+      <CheckPermissions>
         <Login />
       </CheckPermissions>
     ),

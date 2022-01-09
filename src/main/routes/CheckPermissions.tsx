@@ -14,13 +14,13 @@ type PrivateRouterProps = {
   children: React.ReactNode;
   permissions?: string[];
   roles?: string[];
-  isPrivate: boolean;
+  isPrivate?: boolean;
 };
 
 function CheckPermissions({
   roles,
   permissions,
-  isPrivate,
+  isPrivate = false,
   children,
 }: PrivateRouterProps) {
   const { isAuthenticated } = useAuth();
@@ -28,6 +28,10 @@ function CheckPermissions({
 
   if (!isPrivate && isAuthenticated) {
     navigate({ to: '/dashboard' });
+  }
+
+  if (!isPrivate && !isAuthenticated) {
+    return <>{children}</>;
   }
 
   const userHasPermission = useCan({

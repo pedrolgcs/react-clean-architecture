@@ -16,7 +16,7 @@ import {
 } from '@/main/factories/pages';
 
 // components
-import { PrivateRouter } from './PrivateRouter';
+import { CheckPermissions } from './CheckPermissions';
 
 // inicialize
 const location = new ReactLocation();
@@ -24,14 +24,18 @@ const location = new ReactLocation();
 const routes = [
   {
     path: '/',
-    element: <Login />,
+    element: (
+      <CheckPermissions isPrivate={false}>
+        <Login />
+      </CheckPermissions>
+    ),
   },
   {
     path: '/dashboard',
     element: (
-      <PrivateRouter>
+      <CheckPermissions isPrivate>
         <Dashboard />
-      </PrivateRouter>
+      </CheckPermissions>
     ),
   },
 ];

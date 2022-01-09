@@ -1,7 +1,7 @@
 import { Toaster } from 'react-hot-toast';
 
 // context
-import { makeAppProvider as AppProvider } from '@/main/factories/providers';
+import { AppProvider } from '@/presentation/contexts';
 
 // routes
 import {

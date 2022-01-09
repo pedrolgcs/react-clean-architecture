@@ -12,7 +12,7 @@ import { AuthProvider } from '@/presentation/contexts/authContext';
 import { Errors } from '@/presentation/protocols';
 
 // mocks
-import { AuthenticationSpy } from '@/tests/domain/mocks';
+import { AuthenticationSpy, GetUserProfileSpy } from '@/tests/domain/mocks';
 import { MockValidate } from '@/tests/validation/mocks/validate';
 import { populateField } from '@/tests/presentation/mocks';
 
@@ -25,8 +25,10 @@ type SutParams = {
 const makeSut = (params?: SutParams) => {
   const validationMock = new MockValidate(params?.validationError);
   const authenticationSpy = new AuthenticationSpy();
+  const getUserProfileSpy = new GetUserProfileSpy();
+
   render(
-    <AuthProvider>
+    <AuthProvider getUserProfile={getUserProfileSpy}>
       <Login authentication={authenticationSpy} validation={validationMock} />,
     </AuthProvider>,
   );

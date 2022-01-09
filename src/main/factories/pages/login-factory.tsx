@@ -8,11 +8,11 @@ import { makeRemoteAuthentication } from '@/main/factories/useCases';
 import { makeLoginValidation } from '@/main/factories/validations/login-validation-factory';
 
 function makeLogin() {
+  const remoteAuthentication = makeRemoteAuthentication();
+  const loginValidation = makeLoginValidation();
+
   return (
-    <Login
-      authentication={makeRemoteAuthentication()}
-      validation={makeLoginValidation()}
-    />
+    <Login authentication={remoteAuthentication} validation={loginValidation} />
   );
 }
 

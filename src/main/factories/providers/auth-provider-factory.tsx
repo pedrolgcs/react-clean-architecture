@@ -9,8 +9,10 @@ type MakeLoginProps = {
 };
 
 function makeAuthProvider({ children }: MakeLoginProps) {
+  const getUserProfile = makeUserProfile();
+
   return (
-    <AuthProvider getUserProfile={makeUserProfile()}>{children}</AuthProvider>
+    <AuthProvider getUserProfile={getUserProfile}>{children}</AuthProvider>
   );
 }
 

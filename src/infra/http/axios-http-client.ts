@@ -1,30 +1,36 @@
-import axios, { AxiosResponse } from 'axios';
+import axios, { AxiosError } from 'axios';
+import { destroyCookie } from 'nookies';
 
-// protocols
-import { HttpRequest, HttpResponse, HttpClient } from '@/data/protocols/http';
-
-export class AxiosHttpClient<R> implements HttpClient {
-  async request(data: HttpRequest): Promise<HttpResponse<R>> {
-    let axiosResponse: AxiosResponse;
-
-    try {
-      axiosResponse = await axios.request({
-        url: data.url,
-        method: data.method,
-        withCredentials: true,
-        data: data.body,
-        headers: {
-          'Content-Type': 'application/json',
-          ...data.headers,
-        },
-      });
-    } catch (error) {
-      axiosResponse = error.response;
-    }
-
-    return {
-      statusCode: axiosResponse.status,
-      body: axiosResponse.data,
-    };
-  }
+function signOut() {
+  destroyCookie(undefined, 'access_token');
+  window.location.reload();
 }
+
+function setupAPIClient() {
+  const api = axios.create({
+    baseURL: 'http://localhost:3333/api',
+    withCredentials: true,
+    headers: {
+      'Content-Type': 'application/json',
+    },
+  });
+
+  api.interceptors.response.use(
+    response => {
+      return response;
+    },
+    (error: AxiosError) => {
+      if (error.response?.status === 401) {
+        signOut();
+      }
+
+      return Promise.reject(error.response);
+    },
+  );
+
+  return api;
+}
+
+const apiClient = setupAPIClient();
+
+export { apiClient };

@@ -10,10 +10,7 @@ import {
 import { ReactLocationDevtools as ReactDevTools } from 'react-location-devtools';
 
 // pages
-import {
-  makeLogin as Login,
-  makeDashboard as Dashboard,
-} from '@/main/factories/pages';
+import { Login, Dashboard } from '@/presentation/pages';
 
 // components
 import { CheckPermissions } from './CheckPermissions';

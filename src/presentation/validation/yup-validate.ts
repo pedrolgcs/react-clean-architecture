@@ -1,12 +1,13 @@
 import * as Yup from 'yup';
 
 // error handler
-import { getYupValidationErrors } from './getYupValidationErrors';
+import { getYupValidationErrors } from './error/getYupValidationErrors';
 
-// protocols
-import { Validation, Errors } from '@/presentation/protocols';
+type Errors = {
+  [key: string]: string;
+};
 
-class YupValidate implements Validation {
+class YupValidate {
   private schema: Yup.SchemaOf<unknown>;
 
   constructor(schema: Yup.SchemaOf<unknown>) {

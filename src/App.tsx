@@ -1,7 +1,7 @@
 import { Toaster } from 'react-hot-toast';
 
 // context
-import { GlobalProvider } from '@/main/factories/providers';
+import { GlobalProvider } from '@/presentation/contexts';
 
 // routes
 import {
@@ -10,7 +10,7 @@ import {
   Outlet,
   Router,
   ReactLocationDevtools,
-} from '@/main/routes';
+} from '@/presentation/routes';
 
 function App() {
   return (

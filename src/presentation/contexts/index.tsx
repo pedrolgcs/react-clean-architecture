@@ -1,7 +1,10 @@
-import { makeAuthProvider as AuthProvider } from './auth-provider-factory';
+import * as React from 'react';
+
+// contexts
+import { AuthProvider } from './authContext';
 
 type GlobalProviderProps = {
-  children: unknown;
+  children: React.ReactNode;
 };
 
 function GlobalProvider({ children }: GlobalProviderProps) {

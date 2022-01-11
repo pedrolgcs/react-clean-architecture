@@ -5,24 +5,23 @@ import toast from 'react-hot-toast';
 // components
 import { Input, Spinner } from '@/presentation/common/components';
 
-// useCases
-import { Authentication } from '@/domain/useCases';
-
 // contexts
 import { useAuth } from '@/presentation/contexts/authContext';
 
-// protocols
-import { Validation } from '@/presentation/protocols';
+// useCases
+import { RemoteAuthentication } from '@/data/useCases/users';
+
+// validations
+import { loginValidation } from '@/presentation/validation/validators';
 
 // styles
 import styles from './styles.module.scss';
 
-type LoginProps = {
-  authentication: Authentication;
-  validation: Validation;
-};
+// inicialize
+const authentication = new RemoteAuthentication();
+const validation = loginValidation();
 
-function Login({ authentication, validation }: LoginProps) {
+function Login() {
   const [email, setEmail] = React.useState('');
   const [password, setPassword] = React.useState('');
   const [erros, setErros] = React.useState({} as { [key: string]: string });

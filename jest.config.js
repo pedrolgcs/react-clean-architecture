@@ -7,7 +7,7 @@ module.exports = {
     '!**/*.d.ts'
   ],
   coverageReporters: ['lcov', 'json'],
-  setupFilesAfterEnv: ['<rootDir>/src/main/config/jest-setup.ts'],
+  setupFilesAfterEnv: ['<rootDir>/src/config/jest-setup.ts'],
   coverageDirectory: 'coverage',
   testPathIgnorePatterns: [
     '<rootDir>/node_modules/'

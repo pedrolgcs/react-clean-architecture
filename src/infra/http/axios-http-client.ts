@@ -11,6 +11,7 @@ export class AxiosHttpClient<R> implements HttpClient {
       axiosResponse = await axios.request({
         url: data.url,
         method: data.method,
+        withCredentials: true,
         data: data.body,
         headers: {
           'Content-Type': 'application/json',

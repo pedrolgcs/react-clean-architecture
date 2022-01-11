@@ -1,4 +1,5 @@
 import * as React from 'react';
+import { setCookie, parseCookies } from 'nookies';
 
 // domain
 import { UserModel } from '@/domain/models';
@@ -22,14 +23,14 @@ const AuthContext = React.createContext({} as AuthContextValue);
 function AuthProvider({ getUserProfile, children }: AuthProviderProps) {
   const [user, setUser] = React.useState<UserModel>();
   const [token, setToken] = React.useState(() => {
-    return localStorage.getItem('access_token');
+    return parseCookies(undefined).access_token;
   });
 
   const isAuthenticated = !!user;
 
   function setUserToken(token: string) {
     setToken(token);
-    localStorage.setItem('access_token', token);
+    setCookie(undefined, 'access_token', token);
   }
 
   React.useEffect(() => {
